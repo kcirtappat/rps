@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      * {
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+      }
+      body {
+        background-image: url("images/rps-bg.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+    </style>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+    rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+    crossorigin="anonymous">
+</head>
+<body>
+
+    <form action="#">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-4 my-3 text-center">
+            <h3 class="my-1 text-white">Rock Paper Scissors Game</h3>
+                <div class="my-3">
+                  <button class="options btn btn-lg btn-outline-dark btn-light"><img src="images/rock.png" width="50px" alt=""><br>Rock</button>
+                  <button class="options btn btn-lg btn-outline-dark btn-light"><img src="images/paper.png" width="50px" alt=""><br>Paper</button>
+                  <button class="options btn btn-lg btn-outline-dark btn-light"><img src="images/scissors.png" width="50px" alt=""><br>Scissors</button>
+                </div>
+              <div class="my-5">
+                <h3 class="" id="myDisplay"></h3>
+                <h3 class="" id="botDisplay"></h3>
+                <h1 class="" id="resultMatch"></h1>
+                  <hr>
+              </div>
+          </div>
+
+          <div class="col-md-4 text-center">
+            <h2 class="text-white">Match History</h2>
+            <ul id="matchHistory" style="list-style-type: none; font-size: 25px;">
+
+            </ul>
+              <hr>
+          </div>
+
+          <div class="col-md-4 my-3 text-center">
+            <h2 class="text-white">Scoreboard</h2>
+              <h3 class="text-white">Player <span id="playerScore">0</span> - <span id="botScore">0</span> Computer</h3>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <script>
+    const options = document.querySelectorAll(".options");
+    const myResult = document.getElementById('myDisplay');
+    const botResult = document.getElementById('botDisplay');
+    const resultText = document.getElementById('resultMatch');
+  
+    let playerScore = 0; // not yet done
+    let botScore = 0; // not yet done
+    let reset = playerScore = botScore = 0;
+
+    options.forEach((option) => {
+      option.addEventListener("click", function () {
+        const playerInput = this.textContent;
+        const compOptions = ["Rock", "Paper", "Scissors"];
+        const botInput = compOptions[Math.floor(Math.random() * 3)];
+
+        compareInputs(playerInput, botInput);
+        scoreUpdate();
+      });
+    });
+
+    function compareInputs(playerInput, botInput) {
+        let list = document.getElementById('matchHistory');
+        let item = document.createElement("li");
+
+      // Same Input
+      if (playerInput === botInput) {
+        myResult.textContent = "You choose " + playerInput;
+        botResult.textContent = "Bot choose " + botInput;
+        resultText.textContent = "IT'S A TIE!";
+        item.textContent = playerInput + " vs " + botInput;
+        list.appendChild(item);
+        return;
+      }
+      // Rock-Scissor = Win, Rock-Paper = Lose
+      if (playerInput === "Rock") {
+        if (botInput === "Scissors") {
+          myResult.textContent = "You choose " + playerInput;
+          botResult.textContent = "Bot choose " + botInput;
+          resultText.textContent = "YOU WIN";
+          playerScore += 1;
+          item.textContent = playerInput + " vs " + botInput;
+          list.appendChild(item);
+        } else {
+          myResult.textContent = "You choose " + playerInput;
+          botResult.textContent = "Bot choose " + botInput;
+          resultText.textContent = "BOT WINS";
+          botScore += 1;
+          item.textContent = playerInput + " vs " + botInput;
+          list.appendChild(item);
+        }
+      }
+      // Paper-Rock = Win, Paper-Scissors = Lose 
+      else if (playerInput === "Paper") {
+        if (botInput === "Rock") {
+          myResult.textContent = "You choose " + playerInput;
+          botResult.textContent = "Bot choose " + botInput;
+          resultText.textContent = "YOU WIN";
+          playerScore += 1;
+          item.textContent = playerInput + " vs " + botInput;
+          list.appendChild(item);
+        } else {
+          myResult.textContent = "You choose " + playerInput;
+          botResult.textContent = "Bot choose " + botInput;
+          resultText.textContent = "BOT WINS";
+          botScore += 1;
+          item.textContent = playerInput + " vs " + botInput;
+          list.appendChild(item);
+        }
+      }
+      // Paper-Rock = Win, Paper-Scissors = Lose
+      else {
+        if (botInput === "Paper") {
+          myResult.textContent = "You choose " + playerInput;
+          botResult.textContent = "Bot choose " + botInput;
+          resultText.textContent = "YOU WIN";
+          playerScore += 1;
+          item.textContent = playerInput + " vs " + botInput;
+          list.appendChild(item);
+        } else {
+          myResult.textContent = "You choose " + playerInput;
+          botResult.textContent = "Bot choose " + botInput;
+          resultText.textContent = "BOT WINS";
+          botScore += 1;
+          item.textContent = playerInput + " vs " + botInput;
+          list.appendChild(item);
+        }
+      }
+    }
+    
+    function scoreUpdate() {
+      document.getElementById('playerScore').textContent = playerScore;
+      document.getElementById('botScore').textContent = botScore;
+    }
+
+    </script>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+crossorigin="anonymous"></script>
+</body>
+</html>
